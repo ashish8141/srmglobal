@@ -83,9 +83,9 @@ export default function QuickRFQ() {
         }}>✓</div>
         <h3>Request transmitted.</h3>
         <p style={{ marginTop: 8 }}>
-          Reference <span className="mono" style={{ color: "var(--ink-700)" }}>{ref}</span> with <span className="mono" style={{ color: "var(--ink-700)" }}>{pns.length}</span> part {pns.length === 1 ? "number" : "numbers"} routed to <span className="mono">rfq@srmglobaltech.com</span>. Our team responds within 2 hours during business hours.
+          Reference <span className="mono" style={{ color: "var(--paper)" }}>{ref}</span> with <span className="mono" style={{ color: "var(--paper)" }}>{pns.length}</span> part {pns.length === 1 ? "number" : "numbers"} routed to <span className="mono">rfq@srmglobaltech.com</span>. Our team responds within 2 hours during business hours.
         </p>
-        <button className="btn btn-ghost btn-sm" style={{ marginTop: 16 }} onClick={() => { setSent(false); setData({ name: "", company: "", email: "", qty: "", notes: "" }); setPns([]); }}>
+        <button className="btn btn-ghost btn-sm hover:text-black" style={{ marginTop: 16 , color: "var(--paper)"}} onClick={() => { setSent(false); setData({ name: "", company: "", email: "", qty: "", notes: "" }); setPns([]); }}>
           Submit another →
         </button>
       </div>

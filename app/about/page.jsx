@@ -133,7 +133,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="bench-split__photo">
-              <img src="/assets/workbench-2.jpg" alt="Bench-top prototype with breadboard, Arduino-style microcontroller boards, soldering iron, capacitors, and assorted through-hole resistors." loading="lazy" />
+              <img src="/assets/658.jpg" alt="Bench-top prototype with breadboard, Arduino-style microcontroller boards, soldering iron, capacitors, and assorted through-hole resistors." loading="lazy" />
               <div className="bench-split__photo-meta">
                 <span className="mono">FRAME 042 · CHENNAI LAB</span>
               </div>
