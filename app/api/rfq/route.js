@@ -30,7 +30,7 @@ export async function POST(request) {
   const receivedAt = new Date().toISOString();
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.RFQ_TO_EMAIL || "rfq@srmglobaltech.com";
-  const from = process.env.RESEND_FROM_EMAIL || "SRM Global Tech <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 
   if (!apiKey) {
     return NextResponse.json({ ok: false, message: "RFQ email service is not configured." }, { status: 500 });
