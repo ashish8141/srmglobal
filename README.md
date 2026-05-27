@@ -21,11 +21,12 @@ faithful to the **SRM-W3-PROD-2026** blueprint.
 ## API routes (Next.js Route Handlers)
 | Endpoint            | Method | Purpose |
 |---------------------|--------|---------|
-| `/api/search?q=...` | GET    | Live inventory search (mock DB in `lib/inventory.js`) |
+| `/api/stock-sheet?q=...` | GET | Searches the imported TSStock workbook data for inventory results |
 | `/api/rfq`          | POST   | RFQ / BOM submission — logs payload & returns a reference number |
 
-The RFQ handler is a stub — wire it into your CRM / SMTP / Slack webhook in
-`app/api/rfq/route.js`.
+The RFQ handler sends through Resend. Configure `RESEND_API_KEY`,
+`RESEND_FROM_EMAIL`, and `RFQ_TO_EMAIL` in `.env` for local development and in
+your deployment environment for production.
 
 ## Run locally
 ```bash
@@ -51,7 +52,7 @@ app/
   quality/page.jsx
   contact/page.jsx
   api/
-    search/route.js
+    stock-sheet/route.js
     rfq/route.js
 components/
   TopBar.jsx           # Server
@@ -63,18 +64,16 @@ components/
   Capability.jsx       # Server
   CTABand.jsx          # Client (uses Link)
   HeroChipArt.jsx      # Server (decorative SVG chip composition)
-  InventorySearch.jsx  # Client (fetches /api/search)
+  InventorySearch.jsx  # Client (fetches /api/stock-sheet)
   QuickRFQ.jsx         # Client (posts /api/rfq)
-  RFQInterceptModal.jsx# Client
   ContactForm.jsx      # Client (posts /api/rfq)
   QualityPhases.jsx    # Client (tab state)
   ScrollReveal.jsx     # Client (IntersectionObserver fade-up)
   ContactRow.jsx       # Server
   ResponseRow.jsx      # Server
   Term.jsx             # Server
-  Field.jsx            # Client
-lib/
-  inventory.js         # Mock SKU database
+data/
+  tsstock.json         # Imported TSStock_21-May-2026.xlsx rows for stock-sheet search
 public/
   assets/              # Logos
 ```

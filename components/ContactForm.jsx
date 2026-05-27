@@ -2,6 +2,19 @@
 import { useState } from "react";
 import Link from "next/link";
 
+function ContactField({ id, label, value, error, onValueChange, ta = false, rows = 3, placeholder }) {
+  return (
+    <div className={"field " + (error ? "invalid" : "")}>
+      <label htmlFor={id}>{label}</label>
+      {ta
+        ? <textarea id={id} value={value} onChange={(e) => onValueChange(id, e.target.value)} placeholder={placeholder} rows={rows}
+            style={{ fontFamily: id === "bom" ? "var(--font-mono)" : undefined, fontSize: id === "bom" ? 13 : undefined }} />
+        : <input id={id} value={value} onChange={(e) => onValueChange(id, e.target.value)} placeholder={placeholder} />}
+      {error && <span className="err">{error}</span>}
+    </div>
+  );
+}
+
 export default function ContactForm() {
   const [data, setData] = useState({
     name: "", company: "", email: "", phone: "", bom: "", notes: "", agree: false,
@@ -31,9 +44,12 @@ export default function ContactForm() {
         body: JSON.stringify({ source: "contact-bom", ...data }),
       });
       const out = await res.json();
+      if (!res.ok || !out.ok) throw new Error(out.message || "Unable to transmit request.");
       setRef(out.reference || "");
       setSent(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      setErrs({ submit: err.message || "Unable to transmit request." });
     } finally { setSubmitting(false); }
   };
 
@@ -61,33 +77,22 @@ export default function ContactForm() {
     );
   }
 
-  const F = ({ id, label, ta = false, rows = 3, placeholder }) => (
-    <div className={"field " + (errs[id] ? "invalid" : "")}>
-      <label htmlFor={id}>{label}</label>
-      {ta
-        ? <textarea id={id} value={data[id]} onChange={(e) => set(id, e.target.value)} placeholder={placeholder} rows={rows}
-            style={{ fontFamily: id === "bom" ? "var(--font-mono)" : undefined, fontSize: id === "bom" ? 13 : undefined }} />
-        : <input id={id} value={data[id]} onChange={(e) => set(id, e.target.value)} placeholder={placeholder} />}
-      {errs[id] && <span className="err">{errs[id]}</span>}
-    </div>
-  );
-
   return (
     <form className="card" onSubmit={submit} style={{ padding: 36 }}>
       <div className="eyebrow"><span className="dot" />BOM / DATA INGESTION ENGINE</div>
       <h3 style={{ marginTop: 14, marginBottom: 22, fontSize: 24 }}>Submit Your Bill of Materials (BOM) or RFQ.</h3>
 
       <div className="form-2col">
-        <F id="name"    label="Given Name & Surname *"               placeholder="Jane Doe" />
-        <F id="company" label="Company Identification Name *"         placeholder="Acme Electronics Limited" />
-        <F id="email"   label="Corporate Network Email Node *"        placeholder="jane@acme.com" />
-        <F id="phone"   label="Mobile or Voice Access String"         placeholder="+91 ………" />
+        <ContactField id="name"    label="Given Name & Surname *"       placeholder="Jane Doe" value={data.name} error={errs.name} onValueChange={set} />
+        <ContactField id="company" label="Company Identification Name *" placeholder="Acme Electronics Limited" value={data.company} error={errs.company} onValueChange={set} />
+        <ContactField id="email"   label="Corporate Network Email Node *" placeholder="jane@acme.com" value={data.email} error={errs.email} onValueChange={set} />
+        <ContactField id="phone"   label="Mobile or Voice Access String" placeholder="+91 ………" value={data.phone} error={errs.phone} onValueChange={set} />
         <div style={{ gridColumn: "1 / -1" }}>
-          <F id="bom" label="Part Identifier Systems & Volume Matrix Requirements *" ta rows={6}
+          <ContactField id="bom" label="Part Identifier Systems & Volume Matrix Requirements *" value={data.bom} error={errs.bom} onValueChange={set} ta rows={6}
             placeholder={"STM32F407VGT6, ST, 5000\nSN74HC595N, TI, 12000\nMAX232CPE, ADI, 800"} />
         </div>
         <div style={{ gridColumn: "1 / -1" }}>
-          <F id="notes" label="Context Parameters (e.g., Target Budget, Manufacturer Limits)" ta rows={3}
+          <ContactField id="notes" label="Context Parameters (e.g., Target Budget, Manufacturer Limits)" value={data.notes} error={errs.notes} onValueChange={set} ta rows={3}
             placeholder="Optional context — target unit pricing, AVL constraints, delivery preference…" />
         </div>
       </div>
@@ -113,6 +118,7 @@ export default function ContactForm() {
           {submitting ? "Transmitting…" : "Transmit Request"}
         </button>
       </div>
+      {errs.submit && <div className="err" style={{ color: "#c0392b", fontSize: 12, marginTop: 10 }}>{errs.submit}</div>}
     </form>
   );
 }

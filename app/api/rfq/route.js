@@ -1,28 +1,75 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-// POST /api/rfq — stub handler
-// TODO: wire this into your CRM / SMTP / Slack webhook of choice.
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function formatPayload(payload) {
+  return Object.entries(payload)
+    .filter(([, value]) => value !== undefined && value !== null && value !== "")
+    .map(([key, value]) => `${key}: ${typeof value === "boolean" ? (value ? "yes" : "no") : value}`)
+    .join("\n");
+}
+
+// POST /api/rfq — sends RFQ/BOM submissions through Resend.
 export async function POST(request) {
   let payload = {};
-  try { payload = await request.json(); } catch (e) {}
+  try {
+    payload = await request.json();
+  } catch (e) {
+    return NextResponse.json({ ok: false, message: "Invalid request payload." }, { status: 400 });
+  }
 
   const reference = "SRM-RFQ-" + Math.floor(Math.random() * 900000 + 100000);
   const receivedAt = new Date().toISOString();
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.RFQ_TO_EMAIL || "rfq@srmglobaltech.com";
+  const from = process.env.RESEND_FROM_EMAIL || "SRM Global Tech <onboarding@resend.dev>";
 
-  // Server-side log — visible in `npm run dev` console
-  console.log("[RFQ]", reference, receivedAt, payload);
+  if (!apiKey) {
+    return NextResponse.json({ ok: false, message: "RFQ email service is not configured." }, { status: 500 });
+  }
 
-  // Example wiring (uncomment + implement):
-  //
-  // await fetch(process.env.SLACK_WEBHOOK_URL, { method: "POST", body: JSON.stringify({
-  //   text: `New RFQ ${reference} from ${payload.email}\n\`\`\`${JSON.stringify(payload, null, 2)}\`\`\``
-  // })});
-  //
-  // await sendMail({
-  //   to: "rfq@srmglobaltech.com",
-  //   subject: `[${reference}] RFQ via srmglobaltech.com`,
-  //   text: JSON.stringify(payload, null, 2),
-  // });
+  const resend = new Resend(apiKey);
+  const details = formatPayload(payload);
+  const subject = `[${reference}] RFQ via srmglobaltech.com`;
+  const text = [
+    `New RFQ received: ${reference}`,
+    `Received at: ${receivedAt}`,
+    "",
+    details,
+  ].join("\n");
+
+  const { error } = await resend.emails.send({
+    from,
+    to,
+    replyTo: payload.email || undefined,
+    subject,
+    text,
+    html: `
+      <div style="font-family:Arial,sans-serif;line-height:1.5;color:#131722">
+        <h2 style="margin:0 0 12px;color:#122a52">New RFQ received</h2>
+        <p><strong>Reference:</strong> ${escapeHtml(reference)}</p>
+        <p><strong>Received at:</strong> ${escapeHtml(receivedAt)}</p>
+        <pre style="white-space:pre-wrap;background:#f3f6fc;border:1px solid #cfdcf0;padding:14px;border-radius:4px">${escapeHtml(details)}</pre>
+      </div>
+    `,
+  });
+
+  if (error) {
+    return NextResponse.json({
+      ok: false,
+      reference,
+      receivedAt,
+      message: error.message || "Unable to send RFQ email.",
+    }, { status: 502 });
+  }
 
   return NextResponse.json({
     ok: true,

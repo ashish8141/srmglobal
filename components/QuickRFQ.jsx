@@ -1,6 +1,18 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 
+function RFQField({ k, label, placeholder, value, error, onValueChange, ta = false, required = true }) {
+  return (
+    <div className={"field " + (error ? "invalid" : "")}>
+      <label>{label}{required && " *"}</label>
+      {ta
+        ? <textarea value={value} onChange={(e) => onValueChange(k, e.target.value)} placeholder={placeholder} />
+        : <input value={value} onChange={(e) => onValueChange(k, e.target.value)} placeholder={placeholder} />}
+      {error && <span className="err">{error}</span>}
+    </div>
+  );
+}
+
 export default function QuickRFQ() {
   const [data, setData] = useState({ name: "", company: "", email: "", qty: "", notes: "" });
   const [pns, setPns] = useState([]);
@@ -66,8 +78,11 @@ export default function QuickRFQ() {
         body: JSON.stringify({ source: "home-rfq", ...data, pn: pns.join(", ") }),
       });
       const out = await res.json();
+      if (!res.ok || !out.ok) throw new Error(out.message || "Unable to send RFQ.");
       setRef(out.reference || "");
       setSent(true);
+    } catch (e) {
+      setErrs({ submit: e.message || "Unable to send RFQ." });
     } finally { setSubmitting(false); }
   };
 
@@ -92,16 +107,6 @@ export default function QuickRFQ() {
     );
   }
 
-  const F = ({ k, label, placeholder, ta = false, required = true }) => (
-    <div className={"field " + (errs[k] ? "invalid" : "")}>
-      <label>{label}{required && " *"}</label>
-      {ta
-        ? <textarea value={data[k]} onChange={(e) => set(k, e.target.value)} placeholder={placeholder} />
-        : <input value={data[k]} onChange={(e) => set(k, e.target.value)} placeholder={placeholder} />}
-      {errs[k] && <span className="err">{errs[k]}</span>}
-    </div>
-  );
-
   return (
     <form ref={formRef} id="rfq-form" className="card" onSubmit={submit} style={{ padding: 28 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
@@ -112,10 +117,10 @@ export default function QuickRFQ() {
         <span className="tag amber mono">⏱ &lt; 2h RESPONSE</span>
       </div>
       <div className="form-2col-sm">
-        <F k="name" label="Full Name" placeholder="Jane Doe" />
-        <F k="company" label="Company Name" placeholder="Acme Electronics Limited" />
-        <F k="email" label="Business Email" placeholder="jane@acme.com" />
-        <F k="qty" label="Quantity Required" placeholder="e.g. 5,000" />
+        <RFQField k="name" label="Full Name" placeholder="Jane Doe" value={data.name} error={errs.name} onValueChange={set} />
+        <RFQField k="company" label="Company Name" placeholder="Acme Electronics Limited" value={data.company} error={errs.company} onValueChange={set} />
+        <RFQField k="email" label="Business Email" placeholder="jane@acme.com" value={data.email} error={errs.email} onValueChange={set} />
+        <RFQField k="qty" label="Quantity Required" placeholder="e.g. 5,000" value={data.qty} error={errs.qty} onValueChange={set} />
         <div style={{ gridColumn: "1 / -1" }}>
           <div className={"field " + (errs.pn ? "invalid" : "")}>
             <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -159,7 +164,7 @@ export default function QuickRFQ() {
           </div>
         </div>
         <div style={{ gridColumn: "1 / -1" }}>
-          <F k="notes" label="Target Price / Notes" placeholder="Target unit price, packaging, delivery window…" ta required={false} />
+          <RFQField k="notes" label="Target Price / Notes" placeholder="Target unit price, packaging, delivery window…" value={data.notes} error={errs.notes} onValueChange={set} ta required={false} />
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 18, gap: 12, flexWrap: "wrap" }}>
@@ -168,6 +173,7 @@ export default function QuickRFQ() {
           {submitting ? "Sending…" : "Submit Request"}
         </button>
       </div>
+      {errs.submit && <div className="err" style={{ color: "#c0392b", fontSize: 12, marginTop: 10 }}>{errs.submit}</div>}
     </form>
   );
 }

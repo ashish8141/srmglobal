@@ -53,9 +53,6 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ===== Layout ===== */
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
-.row { display: flex; }
-.col { display: flex; flex-direction: column; }
-
 /* ===== Type ===== */
 .eyebrow {
   font-family: var(--font-mono);
@@ -228,8 +225,8 @@ p { margin: 0; color: var(--text-soft); }
   border-bottom: 1.5px solid; border-right: 1.5px solid;
 }
 
-/* grid background — DEPRECATED, kept as no-ops so any stray usage doesn't break */
-.grid-bg, .grid-bg-dark { background: none !important; }
+/* grid background — kept as no-op for dark capability panels */
+.grid-bg-dark { background: none !important; }
 
 /* ===== Cards ===== */
 .card {
@@ -757,61 +754,6 @@ a, button { transition: color .15s, background .15s, border-color .15s, box-shad
   .bench-split { grid-template-columns: 1fr; gap: 28px; }
 }
 
-/* ===== World map (legacy) ===== */
-.world-map-wrap {
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 32px 32px 8px;
-  overflow: hidden;
-  position: relative;
-}
-.world-map-wrap::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-}
-.world-map-header {
-  display: flex; justify-content: space-between;
-  align-items: flex-start; flex-wrap: wrap; gap: 24px;
-  margin-bottom: 12px;
-  position: relative;
-}
-.world-map-legend {
-  display: flex; gap: 28px; align-items: flex-start;
-  padding: 14px 20px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-.world-map-legend-item {
-  display: flex; gap: 12px; align-items: center;
-}
-.legend-pin {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: #e89028;
-  box-shadow: 0 0 0 6px rgba(232,144,40,0.14);
-  flex-shrink: 0;
-}
-.legend-pin.hq {
-  box-shadow: 0 0 0 5px rgba(232,144,40,0.18), 0 0 0 11px rgba(232,144,40,0.08);
-  animation: workflow-blink 1.8s ease-in-out infinite;
-}
-.world-map {
-  position: relative;
-  height: 560px;
-  margin: 12px -12px -8px;
-}
-@media (max-width: 900px) {
-  .world-map { height: 380px; }
-  .world-map-wrap { padding: 22px 18px 8px; }
-}
-
 /* =====================================================
    RESPONSIVE GRID UTILITIES
    All major layout grids are defined here so media
@@ -843,7 +785,7 @@ a, button { transition: color .15s, background .15s, border-color .15s, box-shad
 /* --- Search + RFQ side-by-side (Home dark section) --- */
 .search-rfq-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 24px;
   margin-top: 36px;
 }
@@ -950,12 +892,18 @@ a, button { transition: color .15s, background .15s, border-color .15s, box-shad
 }
 
 /* --- Inventory search results: scrollable on mobile --- */
+.inventory-card {
+  min-width: 0;
+}
 .inventory-results-wrap {
-  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  max-height: 380px;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
-.inventory-results-inner {
-  min-width: 560px;
+.inventory-results-table {
+  min-width: 760px;
 }
 
 /* =====================================================

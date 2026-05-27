@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import Pillar from "@/components/Pillar";
 import CTABand from "@/components/CTABand";
@@ -47,7 +48,13 @@ export default function AboutPage() {
       <section className="section-tight" style={{ paddingTop: 8 }}>
         <div className="container">
           <div className="workbench-photo">
-            <img src="/assets/workbench.jpg" alt="Electronic component workbench — microcontrollers, sensors, breadboard prototyping, and soldering station." loading="lazy" />
+            <Image
+              src="/assets/workbench.jpg"
+              alt="Electronic component workbench — microcontrollers, sensors, breadboard prototyping, and soldering station."
+              fill
+              sizes="(max-width: 1280px) calc(100vw - 40px), 1216px"
+              style={{ objectFit: "cover" }}
+            />
             <div className="workbench-photo__overlay">
               <div className="workbench-photo__tag">
                 <span className="mono" style={{ fontSize: 10, letterSpacing: "0.16em", color: "var(--amber)" }}>● BENCH FLOOR</span>
@@ -133,7 +140,13 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="bench-split__photo">
-              <img src="/assets/658.jpg" alt="Bench-top prototype with breadboard, Arduino-style microcontroller boards, soldering iron, capacitors, and assorted through-hole resistors." loading="lazy" />
+              <Image
+                src="/assets/658.jpg"
+                alt="Bench-top prototype with breadboard, Arduino-style microcontroller boards, soldering iron, capacitors, and assorted through-hole resistors."
+                fill
+                sizes="(max-width: 900px) calc(100vw - 40px), 56vw"
+                style={{ objectFit: "cover" }}
+              />
               <div className="bench-split__photo-meta">
                 <span className="mono">FRAME 042 · CHENNAI LAB</span>
               </div>

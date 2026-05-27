@@ -1,35 +1,32 @@
 "use client";
 import { useState } from "react";
-import RFQInterceptModal from "./RFQInterceptModal";
-
-function statusTag(s) {
-  if (s === "in-stock") return <span className="tag green">● IN STOCK</span>;
-  if (s === "low")      return <span className="tag amber">● LOW STOCK</span>;
-  if (s === "eol")      return <span className="tag red">● EOL / RFQ</span>;
-  return <span className="tag">{s}</span>;
-}
 
 export default function InventorySearch() {
   const [q, setQ] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [results, setResults] = useState([]);
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [added, setAdded] = useState({});
 
   const run = async (val) => {
     const term = val.trim();
     setHasSearched(true);
+    setMessage("");
     if (!term) { setResults([]); return; }
     setLoading(true);
     try {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(term)}`);
-      const data = await res.json();
-      setResults(data.results || []);
-      if (!data.results || data.results.length === 0) setShowModal(true);
+      const sheetRes = await fetch(`/api/stock-sheet?q=${encodeURIComponent(term)}`);
+      const sheetData = await sheetRes.json();
+      setResults(sheetData.results || []);
+      setMessage(
+        sheetData.results && sheetData.results.length > 0
+          ? `TS stock sheet matches from ${sheetData.source || "the imported workbook"}.`
+          : "No TS stock sheet match found. Add the part to RFQ manually below."
+      );
     } catch (e) {
       setResults([]);
-      setShowModal(true);
+      setMessage("Search failed. Please add the part to RFQ manually below.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +39,7 @@ export default function InventorySearch() {
   };
 
   return (
-    <div className="card" style={{ position: "relative" }}>
+    <div className="card inventory-card" style={{ position: "relative" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
         <div>
           <span className="num">LEFT TERMINAL — SEARCH FACILITY</span>
@@ -72,30 +69,35 @@ export default function InventorySearch() {
       </div>
 
       {hasSearched && results.length > 0 && (
-        <div className="inventory-results-wrap" style={{ marginTop: 16, border: "1px solid var(--line)", borderRadius: "var(--radius)", maxHeight: 380, overflowY: "auto", background: "#fff" }}>
-          <div style={{ minWidth: 560 }}>
+        <div className="inventory-results-wrap" style={{ marginTop: 16, border: "1px solid var(--line)", borderRadius: "var(--radius)", background: "#fff" }}>
+          {message && (
+            <div className="mono" style={{
+              padding: "9px 14px", fontSize: 11, letterSpacing: "0.08em",
+              color: "var(--ink-600)", background: "#fff", borderBottom: "1px solid var(--line)"
+            }}>
+              {message}
+            </div>
+          )}
+          <div className="inventory-results-table">
           <div className="mono" style={{
-            display: "grid", gridTemplateColumns: "1.3fr 1fr 0.6fr 0.55fr 0.55fr 0.7fr",
+            display: "grid", gridTemplateColumns: "1.25fr 0.65fr 0.8fr 0.55fr 1fr 0.75fr",
             gap: 8, padding: "10px 14px", fontSize: 11, letterSpacing: "0.08em",
             background: "var(--ink-050)", color: "var(--ink-700)", fontWeight: 600, textTransform: "uppercase",
             position: "sticky", top: 0, zIndex: 1
           }}>
-            <div>PART NUMBER</div><div>DESCRIPTION</div><div>STOCK</div><div>PRICE</div><div>STATUS</div><div style={{ textAlign: "right" }}>ACTION</div>
+            <div>ORIG PART NO</div><div>DATE CODE</div><div>MANUFACTURER</div><div>QUANTITY</div><div>COMMENTS</div><div style={{ textAlign: "right" }}>ACTION</div>
           </div>
-          {results.map((p) => (
-            <div key={p.pn} style={{
-              display: "grid", gridTemplateColumns: "1.3fr 1fr 0.6fr 0.55fr 0.55fr 0.7fr",
+          {results.map((p, i) => (
+            <div key={`${p.pn}-${i}`} style={{
+              display: "grid", gridTemplateColumns: "1.25fr 0.65fr 0.8fr 0.55fr 1fr 0.75fr",
               gap: 8, padding: "12px 14px", borderTop: "1px solid var(--line)",
               fontSize: 13, alignItems: "center", color: "var(--text)"
             }}>
-              <div>
-                <div className="mono" style={{ fontWeight: 600, color: "var(--ink-700)" }}>{p.pn}</div>
-                <div style={{ fontSize: 11, color: "var(--text-faint)" }}>{p.mfr}</div>
-              </div>
-              <div style={{ color: "var(--text-soft)", fontSize: 12 }}>{p.desc}</div>
-              <div className="mono" style={{ color: "var(--text)" }}>{p.stock > 0 ? p.stock.toLocaleString() : "—"}</div>
-              <div className="mono" style={{ color: "var(--text)" }}>{p.price}</div>
-              <div>{statusTag(p.status)}</div>
+              <div className="mono" style={{ fontWeight: 600, color: "var(--ink-700)" }}>{p.pn}</div>
+              <div className="mono" style={{ color: "var(--text)" }}>{p.dateCode || "—"}</div>
+              <div style={{ color: "var(--text-soft)", fontSize: 12 }}>{p.manufacturer || "—"}</div>
+              <div className="mono" style={{ color: "var(--text)" }}>{typeof p.quantity === "number" ? p.quantity.toLocaleString() : p.quantity || "—"}</div>
+              <div style={{ color: "var(--text-soft)", fontSize: 12 }}>{p.comments || "—"}</div>
               <div style={{ textAlign: "right" }}>
                 <button
                   type="button"
@@ -110,7 +112,15 @@ export default function InventorySearch() {
         </div>
       )}
 
-      {showModal && <RFQInterceptModal q={q} onClose={() => setShowModal(false)} />}
+      {hasSearched && !loading && results.length === 0 && message && (
+        <div className="mono" style={{
+          marginTop: 16, padding: "12px 14px", border: "1px solid var(--line)",
+          borderRadius: "var(--radius)", background: "#fff", color: "var(--text-soft)",
+          fontSize: 12, letterSpacing: "0.04em"
+        }}>
+          {message}
+        </div>
+      )}
     </div>
   );
 }
