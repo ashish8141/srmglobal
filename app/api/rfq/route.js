@@ -28,9 +28,18 @@ export async function POST(request) {
 
   const reference = "SRM-RFQ-" + Math.floor(Math.random() * 900000 + 100000);
   const receivedAt = new Date().toISOString();
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.RFQ_TO_EMAIL || "rfq@srmglobaltech.com";
-  const from = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+  const cleanEnvVar = (val) => {
+    if (typeof val !== "string") return val;
+    const trimmed = val.trim();
+    if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+      return trimmed.slice(1, -1).trim();
+    }
+    return trimmed;
+  };
+
+  const apiKey = cleanEnvVar(process.env.RESEND_API_KEY);
+  const to = cleanEnvVar(process.env.RFQ_TO_EMAIL) || "rfq@srmglobaltech.com";
+  const from = cleanEnvVar(process.env.RESEND_FROM_EMAIL) || "onboarding@resend.dev";
 
   if (!apiKey) {
     return NextResponse.json({ ok: false, message: "RFQ email service is not configured." }, { status: 500 });
