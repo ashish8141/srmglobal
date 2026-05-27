@@ -72,7 +72,8 @@ export default function InventorySearch() {
       </div>
 
       {hasSearched && results.length > 0 && (
-        <div style={{ marginTop: 16, border: "1px solid var(--line)", borderRadius: "var(--radius)", overflow: "hidden", maxHeight: 380, overflowY: "auto", background: "#fff" }}>
+        <div className="inventory-results-wrap" style={{ marginTop: 16, border: "1px solid var(--line)", borderRadius: "var(--radius)", maxHeight: 380, overflowY: "auto", background: "#fff" }}>
+          <div style={{ minWidth: 560 }}>
           <div className="mono" style={{
             display: "grid", gridTemplateColumns: "1.3fr 1fr 0.6fr 0.55fr 0.55fr 0.7fr",
             gap: 8, padding: "10px 14px", fontSize: 11, letterSpacing: "0.08em",
@@ -105,6 +106,7 @@ export default function InventorySearch() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 

@@ -111,7 +111,7 @@ export default function QuickRFQ() {
         </div>
         <span className="tag amber mono">⏱ &lt; 2h RESPONSE</span>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="form-2col-sm">
         <F k="name" label="Full Name" placeholder="Jane Doe" />
         <F k="company" label="Company Name" placeholder="Acme Electronics Limited" />
         <F k="email" label="Business Email" placeholder="jane@acme.com" />

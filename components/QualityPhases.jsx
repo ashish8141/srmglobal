@@ -21,7 +21,7 @@ export default function QualityPhases() {
   const p = PHASES[phase];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "0.45fr 1.55fr", gap: 32, marginTop: 40 }}>
+    <div className="quality-phases-grid">
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {PHASES.map((pp, i) => (
           <button key={pp.n} onClick={() => setPhase(i)} style={{
@@ -48,7 +48,7 @@ export default function QualityPhases() {
         <p style={{ marginTop: 14, fontSize: 16 }}>{p.body}</p>
 
         <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--text-faint)", marginTop: 28 }}>CHECK POINTS</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 14 }}>
+        <div className="quality-checkpoints-grid">
           {p.checks.map((c, i) => (
             <div key={i} style={{
               padding: "12px 14px", border: "1px solid var(--line)", borderRadius: "var(--radius)",

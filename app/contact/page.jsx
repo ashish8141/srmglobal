@@ -18,7 +18,7 @@ export default function ContactPage() {
       />
 
       <section className="section-tight" style={{ paddingTop: 24 }}>
-        <div className="container" style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 48, alignItems: "start" }}>
+        <div className="container contact-grid">
 
           {/* LEFT — corporate contact nodes */}
           <div>

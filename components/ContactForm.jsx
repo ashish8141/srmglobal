@@ -77,7 +77,7 @@ export default function ContactForm() {
       <div className="eyebrow"><span className="dot" />BOM / DATA INGESTION ENGINE</div>
       <h3 style={{ marginTop: 14, marginBottom: 22, fontSize: 24 }}>Submit Your Bill of Materials (BOM) or RFQ.</h3>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div className="form-2col">
         <F id="name"    label="Given Name & Surname *"               placeholder="Jane Doe" />
         <F id="company" label="Company Identification Name *"         placeholder="Acme Electronics Limited" />
         <F id="email"   label="Corporate Network Email Node *"        placeholder="jane@acme.com" />

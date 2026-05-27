@@ -33,8 +33,8 @@ export default function HomePage() {
           background: "radial-gradient(circle, rgba(26,54,93,0.10) 0%, rgba(26,54,93,0.04) 40%, transparent 70%)",
           pointerEvents: "none"
         }} />
-        <div className="container" style={{ position: "relative", padding: "96px 32px 80px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 64, alignItems: "center" }}>
+        <div className="container" style={{ position: "relative", paddingTop: 96, paddingBottom: 80 }}>
+          <div className="hero-grid">
             <div>
               <div className="eyebrow"><span className="dot" />LEADING INDEPENDENT STOCKING DISTRIBUTOR</div>
               <h1 style={{ marginTop: 22, fontSize: "clamp(36px, 4.4vw, 60px)" }}>
@@ -43,7 +43,7 @@ export default function HomePage() {
               <p style={{ marginTop: 24, fontSize: 18, maxWidth: 560 }}>
                 As a leading independent stocking distributor, SRM Global Tech Limited bridges the gap in your supply chain. We provide instant access to millions of standard, hard-to-find, and obsolete electronic components at highly competitive market prices.
               </p>
-              <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
+              <div className="hero-btns" style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
                 <Link href="/#search-block" className="btn btn-primary btn-arrow">Search Inventory</Link>
                 <Link href="/contact" className="btn btn-amber btn-arrow">Request a Rapid RFQ</Link>
               </div>
@@ -77,8 +77,8 @@ export default function HomePage() {
       {/* CORE OPERATIONAL SOLUTIONS */}
       <section className="section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "0.8fr 1fr", gap: 80, alignItems: "start" }}>
-            <div style={{ position: "sticky", top: 100 }}>
+          <div className="pillars-layout">
+            <div className="pillars-sticky" style={{ position: "sticky", top: 100 }}>
               <div className="eyebrow"><span className="dot" />CORE OPERATIONAL SOLUTIONS</div>
               <h2 style={{ marginTop: 18 }}>Keeping Your Production Lines Moving.</h2>
               <p style={{ marginTop: 18, fontSize: 16 }}>
@@ -92,7 +92,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            <div className="pillar-cards">
               <PillarCard icon="shield-check" num="PILLAR 1" title="Uncompromising Quality Control" body="Quality is our ultimate priority. Every component passing through SRM Global Tech undergoes stringent multi-stage inspection protocols to mitigate counterfeit risks before shipment." />
               <PillarCard icon="globe" num="PILLAR 2" title="Global Procurement Footprint" body="With strategic supply hubs and international procurement networks, our sourcing team operates across multiple time zones to deliver unbeatable price and speed." />
               <PillarCard icon="bolt" num="PILLAR 3" title="Rapid RFQ & Dispatch" body="Time is money. Our dedicated account managers respond to your inquiries within hours, and all in-stock orders are packaged and dispatched the very same day." />
@@ -116,7 +116,7 @@ export default function HomePage() {
           <p style={{ marginTop: 14, maxWidth: 580, color: "#aebbd1" }}>
             Two parallel intake paths — search the live stock register or transmit a structured RFQ. Both route to our sourcing desk.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 36 }}>
+          <div className="search-rfq-grid">
             <InventorySearch />
             <QuickRFQ />
           </div>
@@ -125,12 +125,12 @@ export default function HomePage() {
 
       {/* CTA */}
       <section style={{ padding: "80px 0", background: "var(--paper-2)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 32, flexWrap: "wrap" }}>
+        <div className="container cta-band-inner" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 32, flexWrap: "wrap" }}>
           <div>
             <h2 style={{ maxWidth: 560 }}>Ready to lock in your next BOM?</h2>
             <p style={{ marginTop: 10, maxWidth: 560 }}>Send us your part list and target volumes — we&apos;ll come back with quotes, alternates, and lead times within two hours.</p>
           </div>
-          <div style={{ display: "flex", gap: 12 }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/about" className="btn btn-ghost">About SRM</Link>
             <Link href="/contact" className="btn btn-primary btn-arrow">Talk to Sourcing</Link>
           </div>

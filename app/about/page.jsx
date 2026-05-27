@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       {/* WHO WE ARE */}
       <section className="section-tight">
-        <div className="container" style={{ display: "grid", gridTemplateColumns: "0.7fr 1.3fr", gap: 80, alignItems: "start" }}>
+        <div className="container about-who-grid">
           <div>
             <div className="eyebrow"><span className="dot" />WHO WE ARE</div>
             <h2 style={{ marginTop: 18 }}>An independent supply partner — without the franchise constraints.</h2>
@@ -69,7 +69,7 @@ export default function AboutPage() {
       {/* Mission & Vision */}
       <section className="section-tight">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+          <div className="about-mv-grid">
             <div className="card" style={{ padding: 36 }}>
               <span className="num">▎ CORPORATE MISSION STATEMENT</span>
               <h3 style={{ marginTop: 8, marginBottom: 14, fontSize: 24 }}>Eliminate manufacturing downtime worldwide.</h3>
@@ -93,7 +93,7 @@ export default function AboutPage() {
         <div className="container">
           <div className="eyebrow"><span className="dot" />STRUCTURAL FOUNDATIONS</div>
           <h2 style={{ marginTop: 16, maxWidth: 680 }}>Our Core Pillars.</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginTop: 48 }}>
+          <div className="about-pillars-grid">
             <Pillar n="01" icon="scales" t="Ethical Sourcing"
               body="We continuously evaluate and vet our supply network, procuring only from verified, trusted vendors." />
             <Pillar n="02" icon="headset" t="Customer-Centric Support"
@@ -147,14 +147,14 @@ export default function AboutPage() {
         <div className="container" style={{ position: "relative" }}>
           <div className="eyebrow"><span className="dot" />OPERATIONAL FOOTPRINT</div>
           <h2 style={{ color: "#fff", marginTop: 14, maxWidth: 680 }}>A sourcing desk that runs while the world is awake.</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, marginTop: 44, border: "1px solid #ffffff15", borderRadius: 10 }}>
+          <div className="about-ops-grid">
             {[
               { k: "TIME ZONES", v: "5+", s: "Continuous sourcing coverage across Asia, EMEA, and the Americas." },
               { k: "VETTED VENDORS", v: "2,000+", s: "Independently verified suppliers in active rotation." },
               { k: "SKU CATALOG", v: "1M+", s: "Standard, hard-to-find, and obsolete electronic components." },
               { k: "QC PROTOCOLS", v: "04", s: "Sequential inspection phases on every line item." },
-            ].map((m, i) => (
-              <div key={m.k} style={{ padding: "28px 26px", borderRight: i < 3 ? "1px solid #ffffff15" : "none" }}>
+            ].map((m) => (
+              <div key={m.k}>
                 <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--ink-300)" }}>{m.k}</div>
                 <div style={{ fontSize: 42, fontWeight: 700, color: "#fff", letterSpacing: "-0.03em", marginTop: 8, lineHeight: 1 }}>{m.v}</div>
                 <div style={{ fontSize: 13, color: "#aebbd1", marginTop: 10 }}>{m.s}</div>

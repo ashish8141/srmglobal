@@ -2,14 +2,16 @@ export default function Capability({ num, tag, title, scope, metrics, kpis, tone
   const dark = tone === "dark";
   return (
     <div style={{ padding: "56px 0", borderTop: "1px solid var(--line)" }}>
-      <div style={{
-        display: "grid", gridTemplateColumns: "0.7fr 1.3fr", gap: 64,
-        background: dark ? "var(--ink-900)" : "transparent",
-        color: dark ? "#d9e2f1" : "inherit",
-        padding: dark ? "48px 40px" : 0,
-        borderRadius: dark ? "var(--radius-lg)" : 0,
-        position: "relative", overflow: "hidden"
-      }}>
+      <div
+        className="capability-grid"
+        style={{
+          background: dark ? "var(--ink-900)" : "transparent",
+          color: dark ? "#d9e2f1" : "inherit",
+          padding: dark ? "48px 40px" : 0,
+          borderRadius: dark ? "var(--radius-lg)" : 0,
+          position: "relative", overflow: "hidden"
+        }}
+      >
         {dark && <div className="grid-bg-dark" style={{ position: "absolute", inset: 0, opacity: 0.4, pointerEvents: "none" }} />}
         <div style={{ position: "relative" }}>
           <div className="mono" style={{
@@ -40,7 +42,7 @@ export default function Capability({ num, tag, title, scope, metrics, kpis, tone
             ))}
           </ul>
 
-          <div style={{
+          <div className="kpi-grid" style={{
             display: "grid", gridTemplateColumns: `repeat(${kpis.length}, 1fr)`,
             marginTop: 28, border: dark ? "1px solid #ffffff15" : "1px solid var(--line)",
             borderRadius: "var(--radius)",

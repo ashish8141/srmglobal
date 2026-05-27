@@ -811,3 +811,320 @@ a, button { transition: color .15s, background .15s, border-color .15s, box-shad
   .world-map { height: 380px; }
   .world-map-wrap { padding: 22px 18px 8px; }
 }
+
+/* =====================================================
+   RESPONSIVE GRID UTILITIES
+   All major layout grids are defined here so media
+   queries can override them — inline styles can't be
+   targeted by breakpoints.
+   ===================================================== */
+
+/* --- Hero (Home page) --- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* --- Core solutions (sticky sidebar + cards) --- */
+.pillars-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.pillar-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* --- Search + RFQ side-by-side (Home dark section) --- */
+.search-rfq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+/* --- About: "Who we are" --- */
+.about-who-grid {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* --- About: Mission / Vision cards --- */
+.about-mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* --- About: 3 core pillars --- */
+.about-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+/* --- About: Operational footprint (4-col dark strip) --- */
+.about-ops-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 44px;
+  border: 1px solid #ffffff15;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.about-ops-grid > div {
+  padding: 28px 26px;
+  border-right: 1px solid #ffffff15;
+}
+.about-ops-grid > div:last-child { border-right: none; }
+
+/* --- Quality: phases accordion --- */
+.quality-phases-grid {
+  display: grid;
+  grid-template-columns: 0.45fr 1.55fr;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+/* --- Quality: checkpoints inside detail panel --- */
+.quality-checkpoints-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* --- Quality: warranty split --- */
+.quality-warranty-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* --- Contact: info + form --- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* --- Services: Capability component grid --- */
+.capability-grid {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 64px;
+}
+
+/* --- Quality: zero-tolerance banner --- */
+.quality-zt-grid {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: 48px;
+  padding: 40px 44px;
+  align-items: center;
+}
+
+/* --- Forms: 2-col field layout (ContactForm, QuickRFQ) --- */
+.form-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.form-2col-sm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* --- Inventory search results: scrollable on mobile --- */
+.inventory-results-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.inventory-results-inner {
+  min-width: 560px;
+}
+
+/* =====================================================
+   MOBILE NAV — hamburger + drawer
+   ===================================================== */
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  padding: 8px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nav-hamburger:hover { background: var(--ink-050); }
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--ink-700);
+  border-radius: 2px;
+  transition: transform .22s ease, opacity .18s ease;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile-drawer {
+  display: none;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  background: rgba(251,250,247,0.98);
+  padding: 8px 0 20px;
+}
+.nav-mobile-drawer.open { display: flex; }
+.nav-mobile-drawer .nav-link {
+  padding: 13px 24px;
+  font-size: 15px;
+  border-radius: 0;
+  border-bottom: none;
+}
+.nav-mobile-drawer .nav-link.active::after {
+  left: 0; right: auto; bottom: auto;
+  top: 12px; height: calc(100% - 24px);
+  width: 3px;
+}
+.nav-mobile-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px 0;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+
+/* =====================================================
+   TABLET BREAKPOINT  ≤ 900px
+   ===================================================== */
+@media (max-width: 900px) {
+  /* container */
+  .container { padding: 0 20px; }
+
+  /* sections */
+  .section { padding: 64px 0; }
+  .section-tight { padding: 40px 0; }
+
+  /* nav */
+  .nav-inner { height: 72px; }
+  .brand img { height: 90px; width: 90px; }
+  .nav-links  { display: none; }
+  .nav-ctas   { display: none !important; }
+  .nav-hamburger { display: flex; }
+
+  /* stat row */
+  .stat-row { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid var(--line); }
+  .stat:last-child { border-bottom: none; }
+
+  /* footer */
+  .foot .cols { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .foot .bottombar { flex-direction: column; text-align: center; gap: 14px; }
+
+  /* hero */
+  .hero-grid { grid-template-columns: 1fr; gap: 0; }
+  .hero-chip-stage { display: none; }
+
+  /* pillars */
+  .pillars-layout { grid-template-columns: 1fr; gap: 36px; }
+  .pillars-layout > .pillars-sticky { position: static !important; }
+
+  /* search & rfq */
+  .search-rfq-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 24px; }
+
+  /* about */
+  .about-who-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-mv-grid  { grid-template-columns: 1fr; gap: 20px; }
+  .about-pillars-grid { grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .about-ops-grid { grid-template-columns: 1fr 1fr; }
+  .about-ops-grid > div { border-right: none; border-bottom: 1px solid #ffffff15; }
+  .about-ops-grid > div:nth-child(odd)  { border-right: 1px solid #ffffff15; }
+  .about-ops-grid > div:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* quality */
+  .quality-zt-grid        { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
+  .quality-phases-grid    { grid-template-columns: 1fr; gap: 20px; }
+  .quality-checkpoints-grid { grid-template-columns: 1fr; }
+  .quality-warranty-grid  { grid-template-columns: 1fr; gap: 28px; padding: 32px 0; }
+
+  /* contact */
+  .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* capability */
+  .capability-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  /* forms */
+  .form-2col    { grid-template-columns: 1fr; gap: 14px; }
+  .form-2col-sm { grid-template-columns: 1fr; gap: 12px; }
+
+  /* workflow */
+  .workflow-grid { grid-template-columns: 1fr; gap: 14px; }
+  .workflow-track { display: none; }
+  .workflow-arrow {
+    right: auto; top: auto;
+    left: 50%; bottom: -22px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+/* =====================================================
+   MOBILE BREAKPOINT  ≤ 640px
+   ===================================================== */
+@media (max-width: 640px) {
+  /* KPI bar inside capability cards — force single column */
+  .kpi-grid { grid-template-columns: 1fr !important; }
+  .kpi-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); }
+  .kpi-grid > div:last-child { border-bottom: none !important; }
+
+  .container { padding: 0 16px; }
+  .section { padding: 48px 0; }
+  .section-tight { padding: 28px 0; }
+
+  /* topbar: hide links, centre status */
+  .topbar .links { display: none; }
+  .topbar-inner  { justify-content: center; }
+
+  /* further simplify about grids */
+  .about-pillars-grid { grid-template-columns: 1fr; }
+  .about-ops-grid     { grid-template-columns: 1fr; }
+  .about-ops-grid > div { border-right: none; border-bottom: 1px solid #ffffff15; }
+  .about-ops-grid > div:last-child { border-bottom: none; }
+
+  /* footer */
+  .foot .cols { grid-template-columns: 1fr; gap: 28px; }
+  .foot .bottombar a { display: none; } /* hide legal links row on tiny screens */
+
+  /* pillar cards: 1 col */
+  .pillar-cards { grid-template-columns: 1fr; }
+
+  /* bench-split stats: 3-col stays but shrinks */
+  .bench-split__stats { gap: 12px; }
+
+  /* CTA band: stack */
+  .cta-band-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+
+  /* hero buttons: stack */
+  .hero-btns { flex-direction: column; align-items: flex-start; }
+}

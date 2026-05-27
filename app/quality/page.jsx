@@ -17,12 +17,12 @@ export default function QualityPage() {
         subtitle="At SRM Global Tech Limited, quality is not a standard—it is an uncompromising promise."
       />
 
+      {/* Zero-tolerance banner */}
       <section className="section-tight">
         <div className="container">
-          <div className="card" style={{
-            padding: "40px 44px", display: "grid", gridTemplateColumns: "0.6fr 1.4fr", gap: 48,
+          <div className="card quality-zt-grid" style={{
             background: "linear-gradient(180deg, #0b1e3f, #07142b)", color: "#d9e2f1",
-            borderColor: "var(--ink-800)", alignItems: "center"
+            borderColor: "var(--ink-800)",
           }}>
             <div>
               <div className="mono" style={{
@@ -50,7 +50,7 @@ export default function QualityPage() {
 
       <section className="section-tight">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 64, padding: "40px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+          <div className="quality-warranty-grid">
             <div>
               <div className="eyebrow"><span className="dot" />WARRANTY DECLARATIONS</div>
               <h2 style={{ marginTop: 14 }}>2–3 Month Comprehensive Corporate Protection.</h2>
