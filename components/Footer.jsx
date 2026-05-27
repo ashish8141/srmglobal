@@ -21,9 +21,7 @@ export default function Footer() {
               Leading independent stocking distributor bridging the gap in your supply chain — millions of standard, hard-to-find, and obsolete electronic components.
             </p>
             <div style={{ fontSize: 11.5, color: "#6f7d96", lineHeight: 1.7 }}>
-              <div><span className="mono" style={{ color: "#8ea1c2" }}>Registered Office:</span> 7F Olympia Tech Park, Guindy, Chennai – 600032, TN, India</div>
-              <div><span className="mono" style={{ color: "#8ea1c2" }}>CIN:</span> U51909TN2024PLC168432</div>
-              <div><span className="mono" style={{ color: "#8ea1c2" }}>GSTIN:</span> 33ABCDE1234F1Z5</div>
+              <div><span className="mono" style={{ color: "#8ea1c2" }}>Registered Office:</span> UNIT 2904-05, 29/F UNIVERSAL TRADE CTR 3 ARBUTHNOT RD CENTRAL HONG KONG</div>
             </div>
           </div>
           <div>

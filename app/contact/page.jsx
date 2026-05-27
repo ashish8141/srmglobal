@@ -30,7 +30,7 @@ export default function ContactPage() {
               <ContactRow icon="⚡" label="Immediate Sourcing Router"   value="rfq@srmglobaltech.com"   href="mailto:rfq@srmglobaltech.com" />
               <ContactRow icon="☏" label="Voice Interface Terminal"   value="+91 44 4500 8200" href="tel:+914445008200" mono />
               <ContactRow icon="⏱" label="Target Hours"               value="Monday – Friday · 09:00 – 18:00 IST" />
-              <ContactRow icon="◉" label="Headquarters"               value="7th Floor, Olympia Tech Park, Guindy, Chennai – 600032, Tamil Nadu, India" />
+              <ContactRow icon="◉" label="Headquarters"               value="UNIT 2904-05, 29/F UNIVERSAL TRADE CTR 3 ARBUTHNOT RD CENTRAL HONG KONG" />
 
               <hr style={{ border: "none", borderTop: "1px solid var(--line)", margin: "22px 0" }} />
 
