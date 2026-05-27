@@ -54,11 +54,11 @@ export default function Footer() {
         </div>
         <div className="bottombar">
           <div>© 2026 SRM Global Tech Limited. All structural assets reserved.</div>
-          <div style={{ display: "flex", gap: 18 }}>
-            <a>Privacy Framework Statement</a>
-            <a>Platform Terms of Use</a>
-            <a>Local Cookie Mapping</a>
-            <a>Quality Standards Records</a>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <Link href="/privacy">Privacy Framework Statement</Link>
+            <Link href="/terms">Platform Terms of Use</Link>
+            <Link href="/cookies">Local Cookie Mapping</Link>
+            <Link href="/quality-standards">Quality Standards Records</Link>
           </div>
         </div>
       </div>
