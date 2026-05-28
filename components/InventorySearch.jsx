@@ -49,21 +49,17 @@ export default function InventorySearch() {
       </div>
       <div className="inventory-search-form">
         <input
+          className="inventory-search-input"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") run(q); }}
           placeholder="Enter Part Number (e.g., STM32F..., SN74...)"
-          style={{
-            flex: 1, height: 50, padding: "0 16px",
-            border: "1px solid var(--line-2)", borderRadius: "var(--radius)",
-            font: "inherit", fontSize: 14.5, minWidth: 0
-          }}
         />
-        <button className="btn btn-primary" style={{ height: 50 }} onClick={() => run(q)} disabled={loading}>
+        <button className="btn btn-primary inventory-search-btn" onClick={() => run(q)} disabled={loading}>
           {loading ? "Searching…" : "Search"}
         </button>
       </div>
-      <div style={{ marginTop: 10, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12, color: "var(--text-faint)" }}>
+      <div className="inventory-search-tip-row">
         <div className="mono">TIP: try <code style={{ background: "var(--ink-050)", padding: "1px 5px" }}>STM32</code>, <code style={{ background: "var(--ink-050)", padding: "1px 5px" }}>SN74</code>, <code style={{ background: "var(--ink-050)", padding: "1px 5px" }}>MAX232</code></div>
         <div className="mono">⏱ avg response &lt; 2h</div>
       </div>
