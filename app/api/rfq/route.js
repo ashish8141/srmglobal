@@ -11,9 +11,25 @@ function escapeHtml(value) {
 }
 
 function formatPayload(payload) {
+  const labelMap = {
+    pn: "Part number",
+    bom: "BOM",
+    qty: "Qty",
+  };
+
   return Object.entries(payload)
-    .filter(([, value]) => value !== undefined && value !== null && value !== "")
-    .map(([key, value]) => `${key}: ${typeof value === "boolean" ? (value ? "yes" : "no") : value}`)
+    .filter(([key, value]) => {
+      if (key === "source" || key === "agree") return false;
+      return value !== undefined && value !== null && value !== "";
+    })
+    .map(([key, value]) => {
+      let label = labelMap[key];
+      if (!label) {
+        label = key.charAt(0).toUpperCase() + key.slice(1);
+      }
+      const valStr = typeof value === "boolean" ? (value ? "yes" : "no") : value;
+      return `${label}: ${valStr}`;
+    })
     .join("\n");
 }
 
