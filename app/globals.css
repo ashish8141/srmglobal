@@ -189,7 +189,7 @@ p {
 }
 
 .search-rfq-grid .btn-ghost:hover {
-  color: var(--text);
+  color: var(--text) !important;
 }
 
 .btn-ghost:hover {
