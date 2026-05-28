@@ -26,7 +26,7 @@ export const metadata = {
   },
   description:
     "SRM Global Tech Limited is a leading independent stocking distributor providing instant access to millions of standard, hard-to-find, and obsolete electronic components at highly competitive market prices.",
-  icons: { icon: "/assets/logo-icon.png" },
+  icons: { icon: "/assets/logo-stack.png" },
   openGraph: {
     title: "SRM Global Tech Limited",
     description: "Independent stocking distributor of electronic components.",
