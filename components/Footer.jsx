@@ -47,7 +47,6 @@ export default function Footer() {
             <ul>
               <li><a href="mailto:sales@srmglobaltech.com">sales@srmglobaltech.com</a></li>
               <li><a href="mailto:rfq@srmglobaltech.com">rfq@srmglobaltech.com</a></li>
-              <li className="mono" style={{ color: "#8ea1c2" }}><a href="tel:+914445008200">+91 44 4500 8200</a></li>
               <li>Mon–Fri · 09:00–18:00</li>
             </ul>
           </div>

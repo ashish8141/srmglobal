@@ -17,7 +17,7 @@ function ContactField({ id, label, value, error, onValueChange, ta = false, rows
 
 export default function ContactForm() {
   const [data, setData] = useState({
-    name: "", company: "", email: "", phone: "", bom: "", notes: "", agree: false,
+    name: "", company: "", email: "", bom: "", notes: "", agree: false,
   });
   const [errs, setErrs] = useState({});
   const [sent, setSent] = useState(false);
@@ -68,7 +68,7 @@ export default function ContactForm() {
           Reference <span className="mono" style={{ color: "var(--ink-700)", fontWeight: 600 }}>{ref}</span> has been routed to our sourcing desk. A dedicated account manager will respond to <span className="mono" style={{ color: "var(--ink-700)" }}>{data.email}</span> within 2 business hours.
         </p>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 28 }}>
-          <button className="btn btn-ghost" onClick={() => { setSent(false); setData({ name: "", company: "", email: "", phone: "", bom: "", notes: "", agree: false }); setErrs({}); }}>
+          <button className="btn btn-ghost" onClick={() => { setSent(false); setData({ name: "", company: "", email: "", bom: "", notes: "", agree: false }); setErrs({}); }}>
             Submit another
           </button>
           <Link href="/" className="btn btn-primary btn-arrow">Back to home</Link>
@@ -85,8 +85,9 @@ export default function ContactForm() {
       <div className="form-2col">
         <ContactField id="name"    label="Given Name & Surname *"       placeholder="Jane Doe" value={data.name} error={errs.name} onValueChange={set} />
         <ContactField id="company" label="Company Identification Name *" placeholder="Acme Electronics Limited" value={data.company} error={errs.company} onValueChange={set} />
-        <ContactField id="email"   label="Corporate Network Email Node *" placeholder="jane@acme.com" value={data.email} error={errs.email} onValueChange={set} />
-        <ContactField id="phone"   label="Mobile or Voice Access String" placeholder="+91 ………" value={data.phone} error={errs.phone} onValueChange={set} />
+        <div style={{ gridColumn: "1 / -1" }}>
+          <ContactField id="email"   label="Corporate Network Email Node *" placeholder="jane@acme.com" value={data.email} error={errs.email} onValueChange={set} />
+        </div>
         <div style={{ gridColumn: "1 / -1" }}>
           <ContactField id="bom" label="Part Identifier Systems & Volume Matrix Requirements *" value={data.bom} error={errs.bom} onValueChange={set} ta rows={6}
             placeholder={"STM32F407VGT6, ST, 5000\nSN74HC595N, TI, 12000\nMAX232CPE, ADI, 800"} />
