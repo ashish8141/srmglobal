@@ -1483,6 +1483,33 @@ button {
   min-width: 760px;
 }
 
+/* --- Card & Form Responsiveness Utilities --- */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.inventory-search-form {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-card {
+  padding: 36px;
+}
+
+.contact-success-card {
+  padding: 48px;
+  text-align: center;
+}
+
+.quality-detail-card {
+  padding: 36px;
+  min-height: 400px;
+}
+
 /* =====================================================
    MOBILE NAV — hamburger + drawer
    ===================================================== */
@@ -1848,5 +1875,39 @@ button {
   .hero-btns {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* responsiveness overrides */
+  .card {
+    padding: 20px;
+  }
+
+  .card-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .inventory-search-form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .inventory-search-form input,
+  .inventory-search-form button {
+    width: 100% !important;
+  }
+
+  .contact-card {
+    padding: 20px;
+  }
+
+  .contact-success-card {
+    padding: 24px;
+  }
+
+  .quality-detail-card {
+    padding: 20px;
+    min-height: auto;
   }
 }

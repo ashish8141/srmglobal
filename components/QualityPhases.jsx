@@ -42,7 +42,7 @@ export default function QualityPhases() {
         ))}
       </div>
 
-      <div className="card bracketed" style={{ padding: 36, minHeight: 400 }}>
+      <div className="card bracketed quality-detail-card">
         <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--amber-2)" }}>● PHASE {p.n} DETAIL</div>
         <h3 style={{ marginTop: 8, fontSize: 28 }}>{p.t}</h3>
         <p style={{ marginTop: 14, fontSize: 16 }}>{p.body}</p>

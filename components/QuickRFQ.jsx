@@ -88,7 +88,7 @@ export default function QuickRFQ() {
 
   if (sent) {
     return (
-      <div className="card" style={{ padding: 28, textAlign: "left" }}>
+      <div className="card" style={{ textAlign: "left" }}>
         <span className="num">RIGHT TERMINAL — RAPID RFQ MODULE</span>
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "center",
@@ -108,8 +108,8 @@ export default function QuickRFQ() {
   }
 
   return (
-    <form ref={formRef} id="rfq-form" className="card" onSubmit={submit} style={{ padding: 28 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+    <form ref={formRef} id="rfq-form" className="card" onSubmit={submit}>
+      <div className="card-header-row">
         <div>
           <span className="num">RIGHT TERMINAL — RAPID RFQ MODULE</span>
           <h3 style={{ marginTop: 4 }}>Request a Rapid RFQ</h3>

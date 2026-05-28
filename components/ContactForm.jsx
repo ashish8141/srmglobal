@@ -55,7 +55,7 @@ export default function ContactForm() {
 
   if (sent) {
     return (
-      <div className="card" style={{ padding: 48, textAlign: "center" }}>
+      <div className="card contact-success-card">
         <div style={{
           width: 96, height: 96, borderRadius: "50%",
           background: "#effaf3", border: "1px solid #b7d9c8",
@@ -78,7 +78,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form className="card" onSubmit={submit} style={{ padding: 36 }}>
+    <form className="card contact-card" onSubmit={submit}>
       <div className="eyebrow"><span className="dot" />BOM / DATA INGESTION ENGINE</div>
       <h3 style={{ marginTop: 14, marginBottom: 22, fontSize: 24 }}>Submit Your Bill of Materials (BOM) or RFQ.</h3>
 

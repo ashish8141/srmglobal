@@ -40,14 +40,14 @@ export default function InventorySearch() {
 
   return (
     <div className="card inventory-card" style={{ position: "relative" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+      <div className="card-header-row">
         <div>
           <span className="num">LEFT TERMINAL — SEARCH FACILITY</span>
           <h3 style={{ marginTop: 4 }}>Search Live Inventory</h3>
         </div>
         <span className="tag blue mono">2,000+ ACTIVE SKUs</span>
       </div>
-      <div style={{ display: "flex", gap: 8 }}>
+      <div className="inventory-search-form">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
@@ -56,7 +56,7 @@ export default function InventorySearch() {
           style={{
             flex: 1, height: 50, padding: "0 16px",
             border: "1px solid var(--line-2)", borderRadius: "var(--radius)",
-            font: "inherit", fontSize: 14.5
+            font: "inherit", fontSize: 14.5, minWidth: 0
           }}
         />
         <button className="btn btn-primary" style={{ height: 50 }} onClick={() => run(q)} disabled={loading}>
